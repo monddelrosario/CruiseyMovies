@@ -1,8 +1,7 @@
-# CruiseyMovies
-![](https://github.com/monddelrosario/CruiseyMovies/assets/CRUISEYMOVIES.gif)
+# Cruisey Movies 🚀
+![](https://github.com/monddelrosario/CruiseyMovies/blob/master/assets/CRUISEYMOVIES.gif)
 
-created by: Raymond del Rosario
-
+Developed by: Raymond del Rosario
 
 ### Latest android build
 
