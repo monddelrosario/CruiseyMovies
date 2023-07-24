@@ -3,13 +3,14 @@ import {
   SEARCH_MOVIES_QUERY,
   UPCOMING_MOVIES_QUERY,
 } from '../../constants';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import CardContainer from '../../components/CardContainer';
-import React from 'react';
 import { ScrollView } from 'moti';
 import SearchIcon from '../../assets/icons/search.svg';
 import Spacer from '../../components/Spacer';
+import { StatusBar } from 'expo-status-bar';
 import { useQuery } from '@apollo/client';
 
 const Home = ({ navigation }) => {
@@ -21,9 +22,18 @@ const Home = ({ navigation }) => {
   const { upcomingMovies } = upcomingResponse?.data || [];
   const { nowPlayingMovies } = nowPlayingResponse?.data || [];
   const { searchMovies } = tomCruiseResponse?.data || [];
-
+  const [filteredSearch, setFilteredSearch] = useState([]);
+  useEffect(() => {
+    if (searchMovies?.results.length > 0) {
+      const filtered = searchMovies?.results?.filter(
+        (item) => !item?.poster_path?.includes('null'),
+      );
+      setFilteredSearch(filtered);
+    }
+  }, [searchMovies?.results]);
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <View style={styles.searchContainer}>
         <Text style={styles.gooddayTextStyle}>Good day!</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Search')}>
@@ -34,7 +44,7 @@ const Home = ({ navigation }) => {
         <Spacer height={20} />
         <CardContainer
           label={'Tom Cruise Movies'}
-          data={searchMovies?.results}
+          data={filteredSearch}
           loading={tomCruiseResponse?.loading}
           type="big"
         />

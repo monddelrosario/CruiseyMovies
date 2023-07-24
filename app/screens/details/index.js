@@ -1,3 +1,4 @@
+import { IMAGE_PATH, window } from '../../constants';
 import {
   Image,
   ScrollView,
@@ -6,59 +7,71 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useEffect, useState } from 'react';
 
 import CloseIcon from '../../assets/icons/close.svg';
 import { FlatList } from 'react-native-gesture-handler';
-import { IMAGE_PATH } from '../../constants';
 import ProfileCard from '../../components/ProfileCard';
 import { SharedElement } from 'react-navigation-shared-element';
 import Spacer from '../../components/Spacer';
+import { StatusBar } from 'expo-status-bar';
 import uuid from 'react-native-uuid';
 
 const Details = ({ navigation, route }) => {
   const { item, cardID } = route.params;
 
+  const [persons, setPersons] = useState([]);
+  useEffect(() => {
+    if (item?.credits?.cast?.length > 0) {
+      const filtered = item?.credits?.cast?.filter((item) => item.profile_path);
+      setPersons(filtered);
+    }
+  }, [item?.credits?.cast]);
   return (
     <View style={styles.flex}>
-      <ScrollView contentContainerStyle={styles.flex} nestedScrollEnabled>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.closeStyle}
-        >
-          <CloseIcon width={40} height={40} />
-        </TouchableOpacity>
-        <SharedElement
-          id={cardID}
-          style={[
-            styles.cardContainer,
-            {
-              backgroundColor: item?.poster_path?.includes('null')
-                ? 'white'
-                : 'black',
-            },
-          ]}
-        >
-          {item?.poster_path?.includes('null') ? (
-            <Text style={styles.noImageTextStyle}>No image available</Text>
-          ) : (
-            <Image
-              source={{ uri: `${IMAGE_PATH + item.poster_path}` }}
-              style={styles.imageStyle}
-              resizeMode="cover"
-            />
-          )}
-        </SharedElement>
-
+      <StatusBar style="light" translucent />
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.closeStyle}
+      >
+        <CloseIcon width={40} height={40} />
+      </TouchableOpacity>
+      <ScrollView style={styles.flex} nestedScrollEnabled>
+        <View style={styles.pictureContainer}>
+          <SharedElement
+            id={cardID}
+            style={[
+              styles.cardContainer,
+              {
+                backgroundColor: item?.poster_path?.includes('null')
+                  ? 'white'
+                  : 'black',
+              },
+            ]}
+          >
+            {item?.poster_path?.includes('null') ? (
+              <Text style={styles.noImageTextStyle}>No image available</Text>
+            ) : (
+              <Image
+                source={{ uri: `${IMAGE_PATH + item.poster_path}` }}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
+            )}
+          </SharedElement>
+        </View>
         <View style={styles.padding}>
           <Spacer height={10} />
 
           <Text style={styles.titleTextStyle}>{item.original_title}</Text>
           <Spacer height={10} />
-          <Text style={styles.review}>{item.overview}</Text>
+          <Text style={styles.review}>
+            {item.overview || 'No data available'}
+          </Text>
           <Spacer height={10} />
 
           <View style={styles.height}>
-            {item?.credits?.cast?.length > 0 ? (
+            {persons?.length > 0 ? (
               <>
                 <Text style={styles.titleTextStyle}>Casts</Text>
                 <Spacer height={10} />
@@ -66,7 +79,7 @@ const Details = ({ navigation, route }) => {
                 <FlatList
                   nestedScrollEnabled
                   keyExtractor={() => uuid.v4()}
-                  data={item?.credits?.cast}
+                  data={persons}
                   horizontal
                   renderItem={(item) => <ProfileCard data={item} />}
                 />
@@ -89,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   cardContainer: {
-    height: '70%',
+    height: '100%',
     width: '100%',
     justifyContent: 'center',
     borderBottomEndRadius: 30,
@@ -110,14 +123,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   height: {
-    height: '40%',
+    height: window.width / 2,
   },
   review: {
     color: 'gray',
     fontSize: 12,
   },
   padding: {
-    height: '40%',
+    padding: 20,
   },
   imageStyle: {
     position: 'absolute',
@@ -127,6 +140,9 @@ const styles = StyleSheet.create({
     right: 0,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
+  },
+  pictureContainer: {
+    height: window.height / 1.3,
   },
   noImageTextStyle: {
     fontSize: 16,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SEARCH_MOVIES_QUERY, UPCOMING_MOVIES_QUERY } from '../../constants';
 import {
   StyleSheet,
@@ -10,6 +10,7 @@ import {
 
 import BackIcon from '../../assets/icons/back.svg';
 import ListContainer from '../../components/ListContainer';
+import { StatusBar } from 'expo-status-bar';
 import { useQuery } from '@apollo/client';
 
 const Search = ({ navigation }) => {
@@ -23,8 +24,18 @@ const Search = ({ navigation }) => {
 
   const { searchMovies } = searchResponse?.data || [];
 
+  const [filteredSearch, setFilteredSearch] = useState([]);
+  useEffect(() => {
+    if (searchMovies?.results.length > 0) {
+      const filtered = searchMovies?.results?.filter(
+        (item) => !item?.poster_path?.includes('null'),
+      );
+      setFilteredSearch(filtered);
+    }
+  }, [searchMovies?.results]);
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <View style={styles.headerStyle}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <BackIcon width={30} height={30} />
@@ -40,13 +51,13 @@ const Search = ({ navigation }) => {
       <View style={styles.mainContainer}>
         <Text style={styles.labelTextStyle}>
           {text
-            ? searchMovies?.results.length > 0
+            ? filteredSearch?.length > 0
               ? 'Results'
               : ''
             : 'Top Searches'}
         </Text>
         <ListContainer
-          data={text ? searchMovies?.results : upcomingMovies?.results}
+          data={text ? filteredSearch : upcomingMovies?.results}
           navigation={navigation}
         />
       </View>
