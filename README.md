@@ -1,6 +1,8 @@
 # CruiseyMovies
+![](https://github.com/monddelrosario/CruiseyMovies/assets/CRUISEYMOVIES.gif)
 
 created by: Raymond del Rosario
+
 
 ### Latest android build
 
