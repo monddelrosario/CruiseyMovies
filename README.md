@@ -1,11 +1,9 @@
 # Cruisey Movies 🚀
+You download latest Android build here  `CruiseyMovies.apk` [here](https://l.facebook.com/l.php?u=https%3A%2F%2Fexpo.dev%2Fartifacts%2Feas%2F9uA3w6aFkmhn4McyKQKRkV.apk%3Ffbclid%3DIwAR32zdKY-zITNbPZurE-YI2MrYKEqFJUVJxrsaS7ch1aRtmwmnKOVhJ83C0&h=AT0tTJLWRbKUkJKruYPp8jIVaOVQXZ1zu3gT9NuUDx05rQHL6TTVEI8QZmU_R0MFGDZRnj8XhtklKP5YafjL8PHu3GiG6LarLCJQgmeBJMAD60T1pcsAmZtSkGAXoH3pejiiXPs0NFo). Then click `install anyway`.
+
 ![](https://github.com/monddelrosario/CruiseyMovies/blob/master/assets/CRUISEYMOVIES.gif)
 
 Developed by: Raymond del Rosario
-
-### Latest android build
-
-Download `CruiseyMovies.apk` [here](https://l.facebook.com/l.php?u=https%3A%2F%2Fexpo.dev%2Fartifacts%2Feas%2F9uA3w6aFkmhn4McyKQKRkV.apk%3Ffbclid%3DIwAR32zdKY-zITNbPZurE-YI2MrYKEqFJUVJxrsaS7ch1aRtmwmnKOVhJ83C0&h=AT0tTJLWRbKUkJKruYPp8jIVaOVQXZ1zu3gT9NuUDx05rQHL6TTVEI8QZmU_R0MFGDZRnj8XhtklKP5YafjL8PHu3GiG6LarLCJQgmeBJMAD60T1pcsAmZtSkGAXoH3pejiiXPs0NFo). Then click `install anyway`.
 
 ### Requirements
 
