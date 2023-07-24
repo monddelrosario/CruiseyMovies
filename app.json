@@ -1,28 +1,31 @@
 {
   "expo": {
     "name": "Cruisey Movies",
-    "slug": "CruiseyMovies",
+    "slug": "cruisey-movies",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/app_logo.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0000"
-    },
+    "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cruiseymovies.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_logo.png",
         "backgroundColor": "#0000"
-      }
+      },
+      "package": "com.cruiseymovies.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0444e75d-814e-4b64-b31d-9018ae8aff1d"
+      }
+    },
+    "owner": "mond_17"
   }
 }
